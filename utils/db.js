@@ -6,8 +6,12 @@ class DBClient {
     const host = process.env.DB_HOST || '127.0.0.1';
     const port = process.env.DB_PORT || '27017';
     const database = process.env.DB_DATABASE || 'files_manager';
-    this.client = new MongoClient(`mongodb://${host}:${port}/${database}`, { useUnifiedTopology: true });
-    this.client.connect();
+    const url = `mongodb://${host}:${port}`;
+    this.client = new MongoClient(url, { useUnifiedTopology: true });
+    this.client.connect()
+      .then(() => {
+        this.connected = true;
+      }).catch((err) => console.log(err.message));
   }
 
   isAlive() {
