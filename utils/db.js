@@ -1,4 +1,4 @@
-import { MongoClient } from 'mongodb';
+const { MongoClient } = require('mongodb');
 
 class DBClient {
   constructor () {
@@ -7,10 +7,7 @@ class DBClient {
     const database = process.env.DB_DATABASE || 'files_manager';
     const url = `mongodb://${host}:${port}`;
     this.client = new MongoClient(url, { useUnifiedTopology: true });
-    this.client.connect()
-      .then(() => {
-        this.connected = true;
-      }).catch((err) => console.log(err.message));
+    this.client.connect();
   }
 
   isAlive () {
