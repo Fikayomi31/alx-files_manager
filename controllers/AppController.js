@@ -1,5 +1,5 @@
-const redisClient = require('../utils/redis');
-const dbClient = require('../utils/db');
+import dbClient from '../utils/db';
+import redisClient from '../utils/redis';
 
 class AppController {
   async getStatus(req, res) {
@@ -13,8 +13,7 @@ class AppController {
     const userNum = await dbClient.nbUsers();
     const fileNum = await dbClient.nbFiles();
     res.json({ userNum, fileNum });
-    res.end()
   }
 };
 
-module.exports = AppController;
+export default AppController;
